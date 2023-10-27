@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="specialization")
+@Table(name="specialization_tab")
 public class Specialization {
 	
 	@Id
@@ -26,6 +26,4 @@ public class Specialization {
 	
 	@Column(name="spec_note_col")
 	private String specNote;
-	
-	
 }
