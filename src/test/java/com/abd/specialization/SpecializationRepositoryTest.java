@@ -35,11 +35,11 @@ public class SpecializationRepositoryTest {
      * */
 	@Test
 	@Order(1)
-	@Disabled
+//	@Disabled
 	public void testSpecCreate() {
 		Specialization spec = new Specialization(null,"CRDLS","Cardiologists", "experts in heart and vessels");
 		spec = repo.save(spec);
-		assertNotNull(spec.getId(),"Spec is not created!");
+		assertNotNull(spec.getId(),"Spec is not created!"); 
 	}
 	
 	
