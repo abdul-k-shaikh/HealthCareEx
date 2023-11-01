@@ -20,7 +20,7 @@ import org.springframework.test.annotation.Rollback;
 import com.abd.entity.Specialization;
 import com.abd.repo.SpecializationRepository;
 
-@DataJpaTest(showSql = true)
+@DataJpaTest(showSql = true) //default value is true only
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 @TestMethodOrder(OrderAnnotation.class)
