@@ -1,0 +1,117 @@
+<html xmlns:th="https://www.thymeleaf.org" />
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-primary text-center text-white">
+          <h3>Specialization Edit</h3>
+        </div>
+        <div class="card-body">
+          <form th:action="@{/spec/update}" method="POST" id="specForm" th:object="${specialization}">
+          
+          <!-- Row 0  -->
+          <div class="row">
+              <div class="col-2">
+                <label for="Id">ID</label>
+              </div>
+              <div class="col-4">
+                <input
+                  type="text"
+                  th:field="*{id}"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+              <div class="col-6">
+                <span id="idError"></span>
+              </div>
+            </div>
+            <!-- Row 1  -->
+            <div class="row">
+              <div class="col-2">
+                <label for="specCode">CODE</label>
+              </div>
+              <div class="col-4">
+                <input
+                  type="text"
+                  th:field="*{specCode}"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-6">
+                <span id="specCodeError"></span>
+              </div>
+            </div>
+
+            <!-- Row 2  -->
+            <div class="row">
+              <div class="col-2">
+                <label for="specName">NAME</label>
+              </div>
+              <div class="col-4">
+                <input type="text" th:field="*{specName}" class="form-control" />
+              </div>
+              <div class="col-6">
+                <span id="specNameError"></span>
+              </div>
+            </div>
+
+            <!-- Row 3  -->
+            <div class="row">
+              <div class="col-2">
+                <label for="specNote">NOTE</label>
+              </div>
+              <div class="col-4">
+                <textarea
+                  th:filed="*{specNote}"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div class="col-6">
+                <span id="specNoteError"></span>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success">
+              Update<i class="fa fa-wrench"></i>
+            </button>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+    <!-- Validation for input boxes -->
+    <script th:src="@{/myjs/spec_validate.js}">
+     
+    </script>
+  </body>
+</html>
