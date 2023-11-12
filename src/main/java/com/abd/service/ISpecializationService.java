@@ -12,4 +12,10 @@ public interface ISpecializationService {
 	public Specialization getOneSpecialization(Long id);
 	public void updateSpecialization(Specialization spec);
 	
+	//#2 for ajax validation
+	public boolean isSpecCodeExist(String specCode);
+	
+	//for name validation 
+	public boolean isSpecNameExist(String specName);
+	
 }

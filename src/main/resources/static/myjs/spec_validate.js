@@ -12,22 +12,35 @@
         //3. validate function
         function validate_specCode() {
           var val = $("#specCode").val();
-          var exp = /^[A-Z]{4,12}$/;
+          var exp = /^[A-Z]{4,10}$/;
           if (val=='') {
             $("#specCodeError").show();
-            specCodeError = false;
-            $("#specCodeError").html("*<b>Code</b> can not be empty")
+            $("#specCodeError").html("*<b>Code</b> Can not be empty")
             $("#specCodeError").css('color','red');
+            specCodeError = false;
           }
           else if(!exp.test(val)) {
             $("#specCodeError").show();
             $("#specCodeError").html("*<b>Code</b> must be 4-12 chars only")
             $("#specCodeError").css('color','red');
             specCodeError = false;
-          }
-           else {
-            $("#specCodeError").hide();
-             specCodeError = true;
+          } else {
+            $.ajax({
+            	url : 'checkCode',
+            	data: {"code": val},
+            	success:function(respTxt){
+            		if(respTxt!=''){
+            		  $("#specCodeError").show();
+                      $("#specCodeError").html(respText);
+                      $("#specCodeError").css('color','red');
+                      specCodeError = false;
+            		
+            		}else{
+            		$("#specCodeError").hide();
+                      specCodeError = true;
+            		}
+            	}
+            });
           }
           return specCodeError;
         }
@@ -48,7 +61,7 @@
             specNameError = false;
           }
            else {
-            $("#specCodeError").hide();
+            $("#specNameError").hide();
             specNameError = true;
           }
             return specNameError;
@@ -56,7 +69,7 @@
         
         function validate_specNote(){
           var val = $("#specNote").val();
-          var exp = /^[A-Za-z0-9\s\.\-\,\']{10,250}$/;
+         // var exp = /^[A-Za-z0-9\s\.\-\,\']{10,250}$/;
           if (val=='') {
             $("#specNoteError").show();
             $("#specNoteError").html("*<b>Note</b> can not be empty")
@@ -70,8 +83,8 @@
             specNoteError = false;
           }
            else {
-            $("#specNoteError").hide();
-              specNoteError = true;
+             $("#specNoteError").hide();
+            specNoteError = true;
           }
             return specNoteError;
         }

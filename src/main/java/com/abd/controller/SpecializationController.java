@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.abd.entity.Specialization;
@@ -93,4 +94,38 @@ public class SpecializationController {
 		
 		return "redirect:all";
 	}
+	
+	/**
+	 * .7 Read code and check with service 
+	 *    Return message back to UI
+	 * @return 
+	 * 
+	 * */
+	
+	@GetMapping("/checkCode")
+	//@ResponseBody here also we can write instead at line no. 107
+	public @ResponseBody String validateSpecCode(@RequestParam String code) 
+	{
+		String message = "";
+		if(service.isSpecCodeExist(code)) {
+			message = code + ", Alredy exist";
+		}
+		
+		return message; //This is not viewName(it is message so we are writing @ResponseBody as return type)
+		
+	}
+	
+	@GetMapping("/checkName")
+	@ResponseBody
+	public String validateSpecName(@RequestParam String name)
+	{   
+		String message = "";
+		if(service.isSpecNameExist(name)) {
+			message = name + ", Alredy exist";
+		}
+		return message;
+		
+	}
+	
+	
 }
