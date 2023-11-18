@@ -1,6 +1,7 @@
 package com.abd.controller;
 
 import java.util.List;
+import java.util.jar.Attributes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.abd.entity.Specialization;
+import com.abd.exception.SpecializationNotFoundException;
 import com.abd.service.ISpecializationService;
 
 @Controller
@@ -65,21 +67,49 @@ public class SpecializationController {
 	 * */
 	@GetMapping("/delete")
 	public String deleteData(@RequestParam Long id, RedirectAttributes attributes) 
-	{
-		service.removeSpecialization(id);
-		attributes.addAttribute("message", "Record ("+id+") is removed");
+	{ 
+		try {
+			service.removeSpecialization(id);
+			attributes.addAttribute("message", "Record ("+id+") is removed");
+			
+		} catch (SpecializationNotFoundException e) {
+			e.printStackTrace();
+			attributes.addAttribute("message", e.getMessage()); 
+		}
+		
+		
 		return "redirect:all";
 		
 	}
 	/**
 	 * 5. Fetch data into edit page
+	 * End user clicks on link, may enter ID manually.
+	 * If entered id is present in DB
+	 *  >Load row as object
+	 *  >Send to edit page
+	 *  >Fill the form
+	 *  Else
+	 *   > Redirect to all (Data page)
+	 *   >Show Error message(Not Found)
+	 *  
 	 * */
 	@GetMapping("/edit")
-	public String showEditPage(@RequestParam Long id, Model model)
+	public String showEditPage(@RequestParam Long id, Model model, RedirectAttributes attributes)
 	{
-		Specialization spec = service.getOneSpecialization(id);
-		model.addAttribute("specialization" , spec);
-		return "SpecializationEdit"; 
+		String page = null;
+		try {
+			Specialization spec = service.getOneSpecialization(id);
+			model.addAttribute("specialization" , spec);
+			page = "SpecializationEdit";
+			
+		} catch (SpecializationNotFoundException e) {
+			e.printStackTrace();
+			attributes.addAttribute("message", e.getMessage());
+			page = "redirect:all";
+		    
+		}
+		
+		return page; 
 	}
 	
 	/**

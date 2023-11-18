@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.abd.entity.Specialization;
+import com.abd.exception.SpecializationNotFoundException;
 import com.abd.repo.SpecializationRepository;
 
 @Service
@@ -29,21 +30,29 @@ public class SpecializationServiceImpl implements ISpecializationService {
 
 	@Override
 	public void removeSpecialization(Long id) {
-		repo.deleteById(id);
+		//repo.deleteById(id);
+		repo.delete(getOneSpecialization(id));
 
 	}
 
+	/**Q)How you have handled custome exception in ur project
+	 * A) below is the example 
+	 * 
+	 * 
+	 * 
+	 * */
 	@Override
-	public Specialization getOneSpecialization(Long id) {
-		Optional<Specialization> optional = repo.findById(id);
-		if(optional.isPresent()) {
-			return optional.get();
-		}
-		else {
-			return null;
-		}
-			
-		//return null;
+	public Specialization getOneSpecialization(Long id) 
+	{
+		/*
+		 * Optional<Specialization> optional = repo.findById(id);
+		 * if(optional.isPresent()) { return optional.get(); } else { throw new
+		 * SpecializationNotFoundException(id+ " Not Found"); }
+		 */
+		
+		return repo.findById(id).orElseThrow(
+				()->new SpecializationNotFoundException(id+ " Not Found")
+				);
 	}
 
 	@Override
