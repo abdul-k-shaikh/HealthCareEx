@@ -1,7 +1,6 @@
 package com.abd.controller;
 
 import java.util.List;
-import java.util.jar.Attributes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.abd.entity.Specialization;
 import com.abd.exception.SpecializationNotFoundException;
 import com.abd.service.ISpecializationService;
+import com.abd.view.SpecializationExcelView;
 
 @Controller
 @RequestMapping("/spec")
@@ -156,6 +157,17 @@ public class SpecializationController {
 		return message;
 		
 	}
+	
+	/**
+	 * .8 export data to excel 
+	 * */
+	@GetMapping("/excel")
+	public ModelAndView exportToExcel() {
+		ModelAndView m = new ModelAndView();
+		m.setView(new SpecializationExcelView());
+		return m;
+	}
+	
 	
 	
 }
