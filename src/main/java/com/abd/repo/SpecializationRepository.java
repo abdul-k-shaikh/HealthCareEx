@@ -9,12 +9,17 @@ public interface SpecializationRepository extends JpaRepository<Specialization,L
 	
 	
 	//#1 for ajax validation
-	@Query("SELECT COUNT(specCode) FROM Specialization WHERE specCode=:specCode")
+	@Query("SELECT COUNT(specCode) FROM Specialization WHERE specCode=:specCode") 
 	Integer getSpecCodeCount(String specCode);
+	
+	@Query("SELECT COUNT(specCode) FROM Specialization WHERE specCode=:specCode AND id!=:id")
+	Integer getSpecCodeCountForEdit(String specCode, Long id);
+	
+	
 	
 	//for name validation
 	@Query("SELECT COUNT(specName) FROM Specialization WHERE specName=:specName")
-	Integer getSpecNameCont(String specName);
+	Integer getSpecNameCount(String specName);
 	
 	
 	

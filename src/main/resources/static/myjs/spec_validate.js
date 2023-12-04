@@ -13,7 +13,7 @@
         function validate_specCode() {
           var val = $("#specCode").val();
           var exp = /^[A-Z]{4,10}$/;
-          if (val=='') {
+          if (val=='') { 
             $("#specCodeError").show();
             $("#specCodeError").html("*<b>Code</b> Can not be empty")
             $("#specCodeError").css('color','red');
@@ -25,10 +25,15 @@
             $("#specCodeError").css('color','red');
             specCodeError = false;
           } else {
+          	var id=0; //for register
+          	if($("#id").val()!=undefined){ //edit page
+          		specCodeError = true;
+          		id = $("#id").val();
+          	}
             $.ajax({
             	url : 'checkCode',
-            	data: {"code": val},
-            	success:function(respTxt){
+            	data: {"code": val, "id":id},
+            	success:function(respTxt:any){
             		if(respTxt!=''){
             		  $("#specCodeError").show();
                       $("#specCodeError").html(respText);

@@ -17,5 +17,5 @@ public interface ISpecializationService {
 	
 	//for name validation 
 	public boolean isSpecNameExist(String specName);
-	
+	public boolean isSpecCodeCountExistForEdit(String specCode, Long id);
 }
