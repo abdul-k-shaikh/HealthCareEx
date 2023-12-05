@@ -33,7 +33,7 @@
             $.ajax({
             	url : 'checkCode',
             	data: {"code": val, "id":id},
-            	success:function(respTxt:any){
+            	success:function(respTxt){
             		if(respTxt!=''){
             		  $("#specCodeError").show();
                       $("#specCodeError").html(respText);

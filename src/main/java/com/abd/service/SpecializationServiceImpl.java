@@ -43,7 +43,7 @@ public class SpecializationServiceImpl implements ISpecializationService {
 	 * */
 	@Override
 	public Specialization getOneSpecialization(Long id) 
-	{
+	{    //2 different ways as follow
 		/*
 		 * Optional<Specialization> optional = repo.findById(id);
 		 * if(optional.isPresent()) { return optional.get(); } else { throw new
@@ -78,7 +78,7 @@ public class SpecializationServiceImpl implements ISpecializationService {
 	}
 
 	@Override
-	public boolean isSpecCodeCountExistForEdit(String specCode, Integer id) {
+	public boolean isSpecCodeCountExistForEdit(String specCode, Long id) {
 		return repo.getSpecCodeCountForEdit(specCode, id)>0;
 	}
 
