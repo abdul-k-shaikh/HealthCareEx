@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.abd.entity.Doctor;
+import com.abd.exception.DoctorNotFoundException;
 import com.abd.repo.DoctorRepository;
 
 
@@ -28,20 +29,21 @@ public class DoctorServiceImpl implements IDoctorService {
 
 	@Override
 	public void removeDoctor(Long id) {
-		return repo.findById(id).orElseThrow(()->new DoctorNotFoundException(id+",not exist"));
+		repo.delete(getOneDoctor(id));
 				
 
 	}
 
 	@Override
 	public Doctor getOneDoctor(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findById(id).orElseThrow(()->new DoctorNotFoundException(id+",not exist"));
 	}
 
 	@Override
 	public void updateDoctor(Doctor doc) {
-		// TODO Auto-generated method stub
+		if(repo.existsById(doc.getId()))
+			repo.save(doc);
+		else throw new DoctorNotFoundException(doc.getId()+",not exist");
 
 	}
 
